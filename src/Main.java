@@ -40,15 +40,9 @@ public class Main {
         // с высшим образованием
         List<String> workForce = persons
                 .stream()
-                .filter(person -> {
-                    final Sex sex = person.getSex();
-                    final int age = person.getAge();
-                    final Education education = person.getEducation();
-
-                    return
-                            (sex == Sex.MAN && age >= 18 && age < 65 && education == Education.HIGHER) ||
-                                    (sex == Sex.WOMAN && age >= 18 && age < 60 && education == Education.HIGHER);
-                })
+                .filter(person -> person.getEducation() == Education.HIGHER)
+                .filter(person -> person.getAge() >= 18)
+                .filter(person -> person.getSex() == Sex.MAN ? person.getAge() < 65 : person.getAge() < 60)
                 .map(Person::getFamily)
                 .sorted()
 //                .limit(10)
